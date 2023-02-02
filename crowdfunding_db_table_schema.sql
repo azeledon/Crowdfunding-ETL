@@ -4,7 +4,7 @@
 
 
 CREATE TABLE "campaign" (
-    "cf_id" int   NOT NULL,
+    "cf_id" varchar(10)   NOT NULL,
     "contact_id" int   NOT NULL,
     "company_name" varchar(100)   NOT NULL,
     "description" text   NOT NULL,
@@ -49,6 +49,17 @@ CREATE TABLE "contacts" (
      )
 );
 
+CREATE TABLE "backers" (
+    "backer_id" varchar(10)   NOT NULL,
+    "cf_id" varchar(10) NOT NULL,
+    "first_name" varchar(50)   NOT NULL,
+    "last_name" varchar(50)   NOT NULL,
+    "email" varchar(100)   NOT NULL,
+    CONSTRAINT "pk_backers" PRIMARY KEY (
+        "cf_id"
+     )
+);
+
 
 ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_contact_id" FOREIGN KEY("contact_id")
 REFERENCES "contacts" ("contact_id");
@@ -58,4 +69,22 @@ REFERENCES "category" ("category_id");
 
 ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_subcategory_id" FOREIGN KEY("subcategory_id")
 REFERENCES "subcategory" ("subcategory_id");
+
+ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_cf_id" FOREIGN KEY("cf_id")
+REFERENCES "backers" ("cf_id");
+
+ALTER TABLE "backers" ADD CONSTRAINT "uk_backers_first_name" UNIQUE("first_name");
+
+ALTER TABLE "contacts" ADD CONSTRAINT "fk_contacts_first_name" FOREIGN KEY("first_name")
+REFERENCES "backers" ("first_name");
+
+ALTER TABLE "backers" ADD CONSTRAINT "uk_backers_last_name" UNIQUE("last_name");
+
+ALTER TABLE "contacts" ADD CONSTRAINT "fk_contacts_last_name" FOREIGN KEY("last_name")
+REFERENCES "backers" ("last_name");
+
+ALTER TABLE "backers" ADD CONSTRAINT "uk_backers_email" UNIQUE("email");
+
+ALTER TABLE "contacts" ADD CONSTRAINT "fk_contacts_email" FOREIGN KEY("email")
+REFERENCES "backers" ("email");
 

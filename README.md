@@ -24,6 +24,11 @@ Independent Funding is a crowd-funding platform that provides financial support 
 
 ![](Image_d_2.png)
 
+## Load Data
+
+![](Image_d_3.png)
+
+
 
 
 
